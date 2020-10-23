@@ -43,8 +43,9 @@ provider "azurerm" {
 
 module "vnet-main" {
     source = "Azure/vnet/azurerm" #This source is on Terraform public registry. See here: https://registry.terraform.io/modules/Azure/vnet/azurerm/1.2.0
-    resource_group_name = var.resource_group_name
+    version = "1.2.0"
     location = var.location
+    resource_group_name = var.resource_group_name    
     vnet_name = var.resource_group_name
     address_space = var.vnet_cidr_range
     subnet_prefixes = var.subnet_prefixes
@@ -55,4 +56,12 @@ module "vnet-main" {
         environment = "dev"
         conscenter ="it"
     }
+}
+
+#################################################################################################################################
+# OUTPUTS
+#################################################################################################################################
+
+output "vnet_id" {
+    value = module.vnet-main.vnet_id
 }
